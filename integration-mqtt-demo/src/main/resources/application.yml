@@ -1,0 +1,39 @@
+server: 
+  port: 8081
+spring:
+  profiles:
+    active: dev
+  application:
+    name: matt-demo    
+  main: 
+    allow-bean-definition-overriding: true
+swagger2:
+  basePackage: com.framework
+  enable: true
+logging:
+  config: classpath:log4j2.xml
+  level: 
+    io.swagger.models.parameters.AbstractSerializableParameter: error
+mqtt:
+  config: 
+    channel1:
+      url: [tcp://centos7docker:1883]
+      topics: [topic1, topic2]
+      qos: [1, 0]
+      username: admin
+      password: public
+      timeout: 60
+      kep-alive-interval: 60
+      async: true
+      client-id-prefix: client_test1_  
+    channel2:
+      url: [tcp://centos7docker:1883]
+      topics: [topic3, topic4]
+      qos: [1, 0]
+      username: admin
+      password: public
+      timeout: 60
+      kep-alive-interval: 60
+      async: true
+      client-id-prefix: client_test2_ 
+
