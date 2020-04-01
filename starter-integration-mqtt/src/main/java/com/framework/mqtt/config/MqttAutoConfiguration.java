@@ -29,7 +29,7 @@ import lombok.extern.log4j.Log4j2;
 
 /**
  * <p>
- * 描述:动态监听海康gps信息
+ * 描述:mqtt自动配置
  * </p>
  * 
  * @author xingyl
@@ -43,7 +43,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 	private ConfigurableApplicationContext applicationContext;
 	@Autowired
 	private MqttProperties mqttProperties;
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = (ConfigurableApplicationContext) applicationContext;
@@ -55,18 +55,18 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 	 */
 	private void init(String channelName, Config config) {
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
-		//通道信息
+		// 通道信息
 		beanFactory.registerBeanDefinition(channelName, mqttChannel());
 		log.info("初始化mqtt, channel {}, 配置 {} ", channelName, config);
 
 		MessageChannel mqttChannel = beanFactory.getBean(channelName, MessageChannel.class);
 		beanFactory.registerBeanDefinition(channelName + "MqttChannelAdapter", channelAdapter(config, mqttChannel));
 		log.info("初始化mqtt Channel Adapter");
-		
+
 		String handlerBeanName = channelName + MqttUtils.CHANNEL_NAME_SUFFIX;
 		beanFactory.registerBeanDefinition(handlerBeanName, mqttOutbound(config));
 		log.info("初始化mqtt MqttPahoMessageHandler");
-		
+
 		MqttUtils.put(channelName, beanFactory.getBean(handlerBeanName, MqttPahoMessageHandler.class));
 	}
 
@@ -113,7 +113,8 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 		BeanDefinitionBuilder messageProducerBuilder = BeanDefinitionBuilder
 				.genericBeanDefinition(MqttPahoMessageDrivenChannelAdapter.class);
 		messageProducerBuilder.setScope(BeanDefinition.SCOPE_SINGLETON);
-		messageProducerBuilder.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
+		messageProducerBuilder
+				.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
 		messageProducerBuilder.addConstructorArgValue(mqttClientFactory(config));
 		messageProducerBuilder.addConstructorArgValue(config.getTopics());
 		messageProducerBuilder.addPropertyValue("converter", new DefaultPahoMessageConverter());
@@ -130,12 +131,11 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 	 * @return
 	 */
 	private AbstractBeanDefinition mqttOutbound(Config config) {
-		BeanDefinitionBuilder builder = BeanDefinitionBuilder
-				.genericBeanDefinition(MqttPahoMessageHandler.class);
+		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MqttPahoMessageHandler.class);
 		builder.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
 		builder.addConstructorArgValue(mqttClientFactory(config));
 		builder.addPropertyValue("async", config.isAsync());
-		
+
 		return builder.getBeanDefinition();
 	}
 }
