@@ -26,6 +26,11 @@ mqtt:
       kep-alive-interval: 60
       async: true
       client-id-prefix: client_test1_  
+      will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "1"}'
+        retained: false
     channel2:
       url: [tcp://centos7docker:1883]
       topics: [topic3, topic4]
@@ -36,4 +41,9 @@ mqtt:
       kep-alive-interval: 60
       async: true
       client-id-prefix: client_test2_ 
+      will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "2"}'
+        retained: false
 

@@ -59,6 +59,28 @@ public class MqttProperties {
 		/**
 		 * 是否异步发送消息
 		 */
-		private boolean async;
+		private Boolean async;
+		
+		private Will will;
+	}
+	
+	@Data
+	public static class Will {
+		/**
+		 *  遗嘱qos设置
+		 */
+		private int qos;
+		/**
+		 * 遗嘱主题
+		 */
+		private String topic;
+		/**
+		 * 遗嘱内容
+		 */
+		private String payload;
+		/**
+		 * 是否发送保留消息
+		 */
+		private Boolean retained;
 	}
 }

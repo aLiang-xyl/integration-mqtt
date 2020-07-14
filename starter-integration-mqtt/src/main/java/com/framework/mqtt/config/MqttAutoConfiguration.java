@@ -1,5 +1,6 @@
 package com.framework.mqtt.config;
 
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -23,6 +24,7 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 
 import com.framework.mqtt.config.MqttProperties.Config;
+import com.framework.mqtt.config.MqttProperties.Will;
 import com.framework.mqtt.utils.MqttUtils;
 
 import lombok.extern.log4j.Log4j2;
@@ -86,6 +88,15 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 		options.setPassword(config.getPassword().toCharArray());
 		options.setUserName(config.getUsername());
 		options.setConnectionTimeout(config.getTimeout());
+		
+		if (config.getWill() != null) {
+			Will will = config.getWill();
+			try {
+				options.setWill(will.getTopic(), will.getPayload().getBytes("utf-8"), will.getQos(), will.getRetained());
+			} catch (UnsupportedEncodingException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
 
 		factory.setConnectionOptions(options);
 		return factory;
@@ -134,7 +145,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MqttPahoMessageHandler.class);
 		builder.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
 		builder.addConstructorArgValue(mqttClientFactory(config));
-		builder.addPropertyValue("async", config.isAsync());
+		builder.addPropertyValue("async", config.getAsync());
 
 		return builder.getBeanDefinition();
 	}

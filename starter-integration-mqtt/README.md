@@ -22,6 +22,11 @@ mqtt:
       kep-alive-interval: 60                           #心跳时间，单位：秒
       async: true                                      #发送消息时是否异步发送
       client-id-prefix: client_test1_                  #客户端id前缀，会自动生成uuid字符串后缀
+      will:                                            #遗嘱信息，可不设置
+        qos: 1                                         #遗嘱qos
+        topic: will_topic                              #遗嘱主题
+        payload: '{"id": "1"}'                         #遗嘱内容
+        retained: false                                #是否发送保留消息
     channel2:                                          #通道名称，第二个配置
       url: [tcp://host1:1883, tcp://host1:1883]
       topics: [topic1, topic2]
@@ -32,6 +37,11 @@ mqtt:
       kep-alive-interval: 60
       async: true
       client-id-prefix: client_test1_
+      will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "2"}'
+        retained: false
 ```
 
 ### 订阅消息
@@ -70,3 +80,10 @@ public class MqttMessageHandler implements MessageHandler {
 ### 发送消息 
 
 MqttUtils工具类中封装了多个发送消息的方法
+
+
+# 更新说明2020-04-14 22:51
+
+1. 添加遗嘱功能，见配置。
+
+2. MqttProperties类中的布尔基础类型改为了封装类型。
