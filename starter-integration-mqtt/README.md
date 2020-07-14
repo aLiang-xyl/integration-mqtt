@@ -47,6 +47,7 @@ mqtt:
 ### 订阅消息
 订阅消息需要实现MessageHandler接口：
 
+
 ```java
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
