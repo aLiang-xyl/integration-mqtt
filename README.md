@@ -1,10 +1,10 @@
 # mqtt整合
 
-starter-integration-mqtt整合了spring-integration-mqtt，只需添加配置，并实现消息订阅接口即可。
+该jar整合了spring-integration-mqtt，只需添加配置，并实现消息订阅接口即可。
 
 ### 类说明
 * MqttAutoConfiguration为自动配置类
-* MqttProperties配置映射
+* MqttProperties配置问价映射
 * MqttUtils工具类，用来发送mqtt消息
 
 ### 配置说明
@@ -22,6 +22,11 @@ mqtt:
       kep-alive-interval: 60                           #心跳时间，单位：秒
       async: true                                      #发送消息时是否异步发送
       client-id-prefix: client_test1_                  #客户端id前缀，会自动生成uuid字符串后缀
+      will:                                            #遗嘱信息，可不设置
+        qos: 1                                         #遗嘱qos
+        topic: will_topic                              #遗嘱主题
+        payload: '{"id": "1"}'                         #遗嘱内容
+        retained: false                                #是否发送保留消息
     channel2:                                          #通道名称，第二个配置
       url: [tcp://host1:1883, tcp://host1:1883]
       topics: [topic1, topic2]
@@ -32,10 +37,16 @@ mqtt:
       kep-alive-interval: 60
       async: true
       client-id-prefix: client_test1_
+      will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "2"}'
+        retained: false
 ```
 
 ### 订阅消息
 订阅消息需要实现MessageHandler接口：
+
 
 ```java
 import org.springframework.integration.annotation.ServiceActivator;
@@ -55,12 +66,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Component
 public class MqttMessageHandler implements MessageHandler {
-	
-	@ServiceActivator(inputChannel = "channel1")
-	@Override
-	public void handleMessage(Message<?> message) throws MessagingException {
-		log.info("收到消息---{}", message);
-	}
+    
+    @ServiceActivator(inputChannel = "channel1")
+    @Override
+    public void handleMessage(Message<?> message) throws MessagingException {
+        log.info("收到消息---{}", message);
+    }
 
 }
 ```
@@ -70,3 +81,10 @@ public class MqttMessageHandler implements MessageHandler {
 ### 发送消息 
 
 MqttUtils工具类中封装了多个发送消息的方法
+
+
+# 更新说明2020-04-14 22:51
+
+1. 添加遗嘱功能，见配置。
+
+2. MqttProperties类中的布尔基础类型改为了封装类型。
