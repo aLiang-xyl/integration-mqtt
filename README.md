@@ -4,7 +4,7 @@
 
 ### 类说明
 * MqttAutoConfiguration为自动配置类
-* MqttProperties配置问价映射
+* MqttProperties配置文件映射
 * MqttUtils工具类，用来发送mqtt消息
 
 ### 配置说明
