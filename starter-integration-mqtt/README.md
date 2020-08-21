@@ -4,7 +4,7 @@
 
 ### 类说明
 * MqttAutoConfiguration为自动配置类
-* MqttProperties配置问价映射
+* MqttProperties配置文件映射
 * MqttUtils工具类，用来发送mqtt消息
 
 ### 配置说明
@@ -66,15 +66,15 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Component
 public class MqttMessageHandler implements MessageHandler {
-	
+    
    /**
 	* 这里的inputChannel的值和配置中的channel1，channel2，channel3……一一对应
 	*/
-	@ServiceActivator(inputChannel = "channel1")
-	@Override
-	public void handleMessage(Message<?> message) throws MessagingException {
-		log.info("收到消息---{}", message);
-	}
+    @ServiceActivator(inputChannel = "channel1")
+    @Override
+    public void handleMessage(Message<?> message) throws MessagingException {
+        log.info("收到消息---{}", message);
+    }
 
 }
 ```
@@ -84,6 +84,12 @@ public class MqttMessageHandler implements MessageHandler {
 ### 发送消息 
 
 MqttUtils工具类中封装了多个发送消息的方法
+
+### 系统主题说明
+
+如果想知道运行状态、消息统计、客户端上下线事件，可订阅系统主题。
+
+可参考 [EMQX的系统主题说明](https://docs.emqx.net/broker/latest/cn/advanced/system-topic.html)
 
 
 # 更新说明2020-07-14 22:51

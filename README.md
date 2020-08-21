@@ -85,6 +85,12 @@ public class MqttMessageHandler implements MessageHandler {
 
 MqttUtils工具类中封装了多个发送消息的方法
 
+### 系统主题说明
+
+如果想知道运行状态、消息统计、客户端上下线事件，可订阅系统主题。
+
+可参考 [EMQX的系统主题说明](https://docs.emqx.net/broker/latest/cn/advanced/system-topic.html)
+
 
 # 更新说明2020-07-14 22:51
 
