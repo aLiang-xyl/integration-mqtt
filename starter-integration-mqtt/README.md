@@ -67,6 +67,9 @@ import lombok.extern.log4j.Log4j2;
 @Component
 public class MqttMessageHandler implements MessageHandler {
 	
+   /**
+	* 这里的inputChannel的值和配置中的channel1，channel2，channel3……一一对应
+	*/
 	@ServiceActivator(inputChannel = "channel1")
 	@Override
 	public void handleMessage(Message<?> message) throws MessagingException {
