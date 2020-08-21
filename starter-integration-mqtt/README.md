@@ -94,6 +94,6 @@ MqttUtils工具类中封装了多个发送消息的方法
 
 # 更新说明2020-08-21 11:35
 
-本猿未做过多的测试，springboot2.2.x版本和springboot2.1.x的版本bean的加在顺序不一样，导致消息订阅失败。
+本猿未做过多的测试，springboot2.1.x版本和springboot2.2.x版本bean的加载顺序不一样，导致消息订阅失败。
 
 现已修复了springboot2.1.9版本下订阅消息失败的问题。
