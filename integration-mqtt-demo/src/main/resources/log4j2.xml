@@ -62,9 +62,6 @@
         <!--过滤掉spring和mybatis的一些无用的DEBUG信息 -->
         <!-- <logger name="org.springframework" level="INFO"></logger> -->
         <!-- <logger name="org.mybatis" level="INFO"></logger>
-        <logger name="com.wayto.oboa.mapper" level="DEBUG"></logger>
-        <logger name="com.wayto.sso.mapper" level="DEBUG"></logger>
-        <logger name="com.wayto.file.mapper" level="DEBUG"></logger>
         <logger name="com.alibaba.nacos.client.naming" level="ERROR"></logger> -->
         <root level="info">
             <appender-ref ref="Console" />
