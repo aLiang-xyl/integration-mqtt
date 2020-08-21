@@ -7,6 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -40,7 +41,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Configuration
 @EnableConfigurationProperties(MqttProperties.class)
-public class MqttAutoConfiguration implements ApplicationContextAware {
+public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostProcessor {
 
 	private ConfigurableApplicationContext applicationContext;
 	@Autowired

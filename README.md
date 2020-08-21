@@ -86,8 +86,14 @@ public class MqttMessageHandler implements MessageHandler {
 MqttUtils工具类中封装了多个发送消息的方法
 
 
-# 更新说明2020-04-14 22:51
+# 更新说明2020-07-14 22:51
 
 1. 添加遗嘱功能，见配置。
 
 2. MqttProperties类中的布尔基础类型改为了封装类型。
+
+# 更新说明2020-08-21 11:35
+
+本猿未做过多的测试，springboot2.2.x版本和springboot2.1.x的版本bean的加在顺序不一样，导致消息订阅失败。
+
+现已修复了springboot2.1.9版本下订阅消息失败的问题。
