@@ -3,11 +3,9 @@ package com.framework.example.controller;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.framework.mqtt.config.MqttAutoConfiguration;
 import com.framework.mqtt.utils.MqttUtils;
 
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
  */
 @Log4j2
 @RestController
-@AutoConfigureAfter(value = MqttAutoConfiguration.class)
 public class MqttController {
 
 
