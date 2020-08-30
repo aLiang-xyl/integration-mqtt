@@ -7,13 +7,6 @@ spring:
     name: mqtt-demo    
   main: 
     allow-bean-definition-overriding: true
-swagger2:
-  basePackage: com.framework
-  enable: true
-logging:
-  config: classpath:log4j2.xml
-  level: 
-    io.swagger.models.parameters.AbstractSerializableParameter: error
 mqtt:
   config: 
     channel1:
