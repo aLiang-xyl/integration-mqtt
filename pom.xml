@@ -10,7 +10,7 @@
 	<packaging>pom</packaging>
 
 	<name>integration-mqtt</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<modules>
 		<module>starter-integration-mqtt</module>
 		<module>integration-mqtt-demo</module>

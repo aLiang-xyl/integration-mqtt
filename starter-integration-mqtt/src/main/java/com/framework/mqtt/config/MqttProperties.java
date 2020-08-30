@@ -53,15 +53,33 @@ public class MqttProperties {
 		 */
 		private String password;
 		/**
-		 * clientId前缀，会自动生成唯一后缀
+		 * clientId后是否添加本机ip
 		 */
-		private String clientIdPrefix;
+		private Boolean clientIdAppendIp;
+		/**
+		 * consumer clientId
+		 */
+		private String consumerClientId;
+		/**
+		 * producer clientId
+		 */
+		private String producerClientId;
 		/**
 		 * 是否异步发送消息
 		 */
 		private Boolean async;
+		/**
+		 * consumer遗嘱配置
+		 */
+		private Will consumerWill;
+		/**
+		 * producer遗嘱配置
+		 */
+		private Will producerWill;
 		
-		private Will will;
+		public String getAppendIp(String hostAddress) {
+			return clientIdAppendIp == null || !clientIdAppendIp ? "" : hostAddress;
+		}
 	}
 	
 	@Data

@@ -1,7 +1,8 @@
 package com.framework.mqtt.config;
 
 import java.io.UnsupportedEncodingException;
-import java.util.UUID;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.BeansException;
@@ -43,9 +44,23 @@ import lombok.extern.log4j.Log4j2;
 @EnableConfigurationProperties(MqttProperties.class)
 public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostProcessor {
 
+	/**
+	 * 本机ip作为clientid的后缀
+	 */
+	private static  String hostAddress;
+	
 	private ConfigurableApplicationContext applicationContext;
 	@Autowired
 	private MqttProperties mqttProperties;
+	
+	static {
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			hostAddress = "_ip_" + address.getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -79,7 +94,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	 * @param vo
 	 * @return
 	 */
-	private MqttPahoClientFactory mqttClientFactory(Config config) {
+	private MqttPahoClientFactory mqttClientFactory(Config config, boolean isConsumer) {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 		MqttConnectOptions options = new MqttConnectOptions();
 
@@ -89,11 +104,17 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 		options.setPassword(config.getPassword().toCharArray());
 		options.setUserName(config.getUsername());
 		options.setConnectionTimeout(config.getTimeout());
-		
-		if (config.getWill() != null) {
-			Will will = config.getWill();
+
+		Will will = null;
+		if (isConsumer && config.getConsumerWill() != null) {
+			will = config.getConsumerWill();
+		} else if (!isConsumer && config.getProducerWill() != null) {
+			will = config.getProducerWill();
+		}
+		if (will != null) {
 			try {
-				options.setWill(will.getTopic(), will.getPayload().getBytes("utf-8"), will.getQos(), will.getRetained());
+				options.setWill(will.getTopic(), will.getPayload().getBytes("utf-8"), will.getQos(),
+						will.getRetained());
 			} catch (UnsupportedEncodingException e) {
 				log.error(e.getMessage(), e);
 			}
@@ -126,8 +147,8 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 				.genericBeanDefinition(MqttPahoMessageDrivenChannelAdapter.class);
 		messageProducerBuilder.setScope(BeanDefinition.SCOPE_SINGLETON);
 		messageProducerBuilder
-				.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
-		messageProducerBuilder.addConstructorArgValue(mqttClientFactory(config));
+				.addConstructorArgValue(config.getConsumerClientId() + config.getAppendIp(hostAddress));
+		messageProducerBuilder.addConstructorArgValue(mqttClientFactory(config, true));
 		messageProducerBuilder.addConstructorArgValue(config.getTopics());
 		messageProducerBuilder.addPropertyValue("converter", new DefaultPahoMessageConverter());
 		messageProducerBuilder.addPropertyValue("qos", config.getQos());
@@ -144,8 +165,8 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	 */
 	private AbstractBeanDefinition mqttOutbound(Config config) {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MqttPahoMessageHandler.class);
-		builder.addConstructorArgValue(config.getClientIdPrefix() + UUID.randomUUID().toString().replace("-", ""));
-		builder.addConstructorArgValue(mqttClientFactory(config));
+		builder.addConstructorArgValue(config.getProducerClientId() + config.getAppendIp(hostAddress));
+		builder.addConstructorArgValue(mqttClientFactory(config, false));
 		builder.addPropertyValue("async", config.getAsync());
 
 		return builder.getBeanDefinition();

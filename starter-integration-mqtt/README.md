@@ -21,11 +21,18 @@ mqtt:
       timeout: 60                                      #连接超时时间，单位：秒
       kep-alive-interval: 60                           #心跳时间，单位：秒
       async: true                                      #发送消息时是否异步发送
-      client-id-prefix: client_test1_                  #客户端id前缀，会自动生成uuid字符串后缀
-      will:                                            #遗嘱信息，可不设置
+      client-id-append-ip: true                        #是否在clientId后面追加本机ip，因为clientid是唯一值，集群环境下不能使用相同的clientid，追加ip可解决该问题
+      consumer-client-id: consumer_client_test1        #consumer client id配置
+      producer-client-id: producer_client_test1        #producer client id配置
+      consumer-will:                                   #consumer遗嘱消息配置
         qos: 1                                         #遗嘱qos
         topic: will_topic                              #遗嘱主题
-        payload: '{"id": "1"}'                         #遗嘱内容
+        payload: '{"id": "consumer_client_test1"}'     #遗嘱内容
+        retained: false                                #是否发送保留消息
+      producer-will:                                   #producer遗嘱消息配置
+        qos: 1                                         #遗嘱qos
+        topic: will_topic                              #遗嘱主题
+        payload: '{"id": "producer_client_test1"}'     #遗嘱内容
         retained: false                                #是否发送保留消息
     channel2:                                          #通道名称，第二个配置
       url: [tcp://host1:1883, tcp://host1:1883]
@@ -36,11 +43,17 @@ mqtt:
       timeout: 60
       kep-alive-interval: 60
       async: true
-      client-id-prefix: client_test1_
-      will: 
+      consumer-client-id: consumer_client_test2
+      producer-client-id: producer_client_test2
+      consumer-will: 
         qos: 1
         topic: will_topic
-        payload: '{"id": "2"}'
+        payload: '{"id": "consumer_client_test2"}'
+        retained: false
+      producer-will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "producer_client_test2"}'
         retained: false
 ```
 
@@ -92,14 +105,23 @@ MqttUtils工具类中封装了多个发送消息的方法
 可参考 [EMQX的系统主题说明](https://docs.emqx.net/broker/latest/cn/advanced/system-topic.html)
 
 
-# 更新说明2020-07-14 22:51
+# 更新说明
+
+## 2020-07-14 22:51
 
 1. 添加遗嘱功能，见配置。
 
 2. MqttProperties类中的布尔基础类型改为了封装类型。
 
-# 更新说明2020-08-21 11:35
+## 2020-08-21 11:35
 
 本猿未做过多的测试，springboot2.1.x版本和springboot2.2.x版本bean的加载顺序不一样，导致消息订阅失败。
 
 现已修复了springboot2.1.9版本下订阅消息失败的问题。
+
+## 2020-08-30 14:58
+
+更新了配置方式：
+* 去掉了client-id-prefix配置，相应的添加了consumer-client-id，producer-client-id配置，不再自动添加uuid后缀，可添加配置client-id-append-ip决定是否在clientId后追加本机ip
+
+* 去掉了will配置，相应的添加consumer-will,producer-will，分别配置生产者和消费者的遗嘱消息

@@ -18,11 +18,18 @@ mqtt:
       timeout: 60
       kep-alive-interval: 60
       async: true
-      client-id-prefix: client_test1_  
-      will: 
+      client-id-append-ip: true
+      consumer-client-id: consumer_client_test1
+      producer-client-id: producer_client_test1 
+      consumer-will: 
         qos: 1
         topic: will_topic
-        payload: '{"id": "1"}'
+        payload: '{"id": "consumer_client_test1"}'
+        retained: false
+      producer-will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "producer_client_test1"}'
         retained: false
     channel2:
       url: [tcp://centos7docker:1883]
@@ -33,10 +40,17 @@ mqtt:
       timeout: 60
       kep-alive-interval: 60
       async: true
-      client-id-prefix: client_test2_ 
-      will: 
+      client-id-append-ip: false
+      consumer-client-id: consumer_client_test2
+      producer-client-id: producer_client_test2
+      consumer-will: 
         qos: 1
         topic: will_topic
-        payload: '{"id": "2"}'
+        payload: '{"id": "consumer_client_test2"}'
+        retained: false
+      producer-will: 
+        qos: 1
+        topic: will_topic
+        payload: '{"id": "producer_client_test2"}'
         retained: false
 
