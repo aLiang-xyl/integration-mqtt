@@ -1,8 +1,6 @@
 package com.framework.mqtt.config;
 
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.BeansException;
@@ -44,24 +42,10 @@ import lombok.extern.log4j.Log4j2;
 @EnableConfigurationProperties(MqttProperties.class)
 public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostProcessor {
 
-	/**
-	 * 本机ip作为clientid的后缀
-	 */
-	private static  String hostAddress;
-	
 	private ConfigurableApplicationContext applicationContext;
 	@Autowired
 	private MqttProperties mqttProperties;
 	
-	static {
-		try {
-			InetAddress address = InetAddress.getLocalHost();
-			hostAddress = "_ip_" + address.getHostAddress();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = (ConfigurableApplicationContext) applicationContext;
@@ -147,7 +131,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 				.genericBeanDefinition(MqttPahoMessageDrivenChannelAdapter.class);
 		messageProducerBuilder.setScope(BeanDefinition.SCOPE_SINGLETON);
 		messageProducerBuilder
-				.addConstructorArgValue(config.getConsumerClientId() + config.getAppendIp(hostAddress));
+				.addConstructorArgValue(config.getConsumerClientId());
 		messageProducerBuilder.addConstructorArgValue(mqttClientFactory(config, true));
 		messageProducerBuilder.addConstructorArgValue(config.getTopics());
 		messageProducerBuilder.addPropertyValue("converter", new DefaultPahoMessageConverter());
@@ -165,7 +149,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	 */
 	private AbstractBeanDefinition mqttOutbound(Config config) {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MqttPahoMessageHandler.class);
-		builder.addConstructorArgValue(config.getProducerClientId() + config.getAppendIp(hostAddress));
+		builder.addConstructorArgValue(config.getProducerClientId());
 		builder.addConstructorArgValue(mqttClientFactory(config, false));
 		builder.addPropertyValue("async", config.getAsync());
 

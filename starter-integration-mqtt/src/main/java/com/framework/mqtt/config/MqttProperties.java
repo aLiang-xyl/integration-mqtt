@@ -1,5 +1,7 @@
 package com.framework.mqtt.config;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,8 +21,22 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "mqtt")
 @Configuration
 public class MqttProperties {
-	
+
+	/**
+	 * 本机ip作为clientid的后缀
+	 */
+	private static String hostAddress;
+
 	private final Map<String, Config> config;
+
+	static {
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			hostAddress = "_ip_" + address.getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Data
 	public static class Config {
@@ -76,16 +92,20 @@ public class MqttProperties {
 		 * producer遗嘱配置
 		 */
 		private Will producerWill;
-		
-		public String getAppendIp(String hostAddress) {
-			return clientIdAppendIp == null || !clientIdAppendIp ? "" : hostAddress;
+
+		public String getConsumerClientId() {
+			return clientIdAppendIp == null || !clientIdAppendIp ? consumerClientId : consumerClientId + hostAddress;
+		}
+
+		public String getProducerClientId() {
+			return clientIdAppendIp == null || !clientIdAppendIp ? producerClientId : producerClientId + hostAddress;
 		}
 	}
-	
+
 	@Data
 	public static class Will {
 		/**
-		 *  遗嘱qos设置
+		 * 遗嘱qos设置
 		 */
 		private int qos;
 		/**
