@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>aliang.xyl</groupId>
+		<groupId>cn.xyliang</groupId>
 		<artifactId>integration-mqtt</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
@@ -25,7 +25,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>aliang.xyl</groupId>
+			<groupId>cn.xyliang</groupId>
 			<artifactId>starter-integration-mqtt</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
