@@ -35,7 +35,7 @@ import lombok.extern.log4j.Log4j2;
  * </p>
  * 
  * @author xingyl
- * @date 2020年3月27日 下午5:08:36
+ * @date 2020-03-27 17:08:36
  */
 @Log4j2
 @Configuration

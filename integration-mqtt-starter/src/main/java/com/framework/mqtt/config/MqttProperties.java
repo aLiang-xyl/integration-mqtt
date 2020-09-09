@@ -15,7 +15,7 @@ import lombok.Data;
  * </p>
  * 
  * @author xingyl
- * @date 2020年3月26日 下午3:52:15
+ * @date 2020-03-27 15:08:36
  */
 @Data
 @ConfigurationProperties(prefix = "mqtt")
@@ -27,6 +27,9 @@ public class MqttProperties {
 	 */
 	private static String hostAddress;
 
+	/**
+	 * 所有的配置
+	 */
 	private final Map<String, Config> config;
 
 	static {
