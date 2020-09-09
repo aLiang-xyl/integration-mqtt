@@ -47,8 +47,8 @@
 	</issueManagement>
 	<scm>
 		<url>https://github.com/aLiang-xyl/integration-mqtt</url>
-		<connection>scm:git@github.com:aLiang-xyl/integration-mqtt.git</connection>
-		<developerConnection>scm:git@github.com:aLiang-xyl/integration-mqtt.git</developerConnection>
+		<connection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</connection>
+		<developerConnection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</developerConnection>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
