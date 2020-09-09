@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.xyliang</groupId>
 	<artifactId>integration-mqtt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>integration-mqtt</name>
 	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<description>integration mqtt starter</description>
@@ -15,7 +15,6 @@
 		<maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
 		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 		<spring.boot.version>2.2.5.RELEASE</spring.boot.version>
-		<cn.xyliang.mqtt.version>0.0.1-SNAPSHOT</cn.xyliang.mqtt.version>
 	</properties>
 	<modules>
 		<module>integration-mqtt-starter</module>
@@ -47,6 +46,7 @@
 		<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 		<connection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</connection>
 		<developerConnection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</developerConnection>
+    <tag>v0.0.1</tag>
   </scm>
 	<dependencyManagement>
 		<dependencies>
