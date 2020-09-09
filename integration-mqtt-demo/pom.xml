@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>cn.xyliang</groupId>
 		<artifactId>integration-mqtt</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>integration-mqtt-demo</artifactId>
@@ -16,7 +16,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring.boot.version>2.2.5.RELEASE</spring.boot.version>
-		<cn.xyliang.mqtt.version>0.0.1</cn.xyliang.mqtt.version>
+		<cn.xyliang.mqtt.version>0.0.2-SNAPSHOT</cn.xyliang.mqtt.version>
 	</properties>
 	<dependencies>
 	    <dependency>
