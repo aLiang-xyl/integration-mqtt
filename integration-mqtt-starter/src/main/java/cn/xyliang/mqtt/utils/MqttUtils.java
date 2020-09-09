@@ -1,4 +1,4 @@
-package com.framework.mqtt.utils;
+package cn.xyliang.mqtt.utils;
 
 import java.util.Collection;
 import java.util.HashMap;

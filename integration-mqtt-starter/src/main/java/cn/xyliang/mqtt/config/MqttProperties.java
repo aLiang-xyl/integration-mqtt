@@ -1,4 +1,4 @@
-package com.framework.mqtt.config;
+package cn.xyliang.mqtt.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

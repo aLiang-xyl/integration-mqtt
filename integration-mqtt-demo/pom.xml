@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.xyliang</groupId>
 	<artifactId>integration-mqtt-demo</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>integration-mqtt-demo</name>
 	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<properties>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>cn.xyliang</groupId>
 			<artifactId>integration-mqtt-starter</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

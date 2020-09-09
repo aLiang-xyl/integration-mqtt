@@ -1,4 +1,4 @@
-package com.framework.mqtt.config;
+package cn.xyliang.mqtt.config;
 
 import java.io.UnsupportedEncodingException;
 
@@ -23,10 +23,9 @@ import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.MessageChannel;
 
-import com.framework.mqtt.config.MqttProperties.Config;
-import com.framework.mqtt.config.MqttProperties.Will;
-import com.framework.mqtt.utils.MqttUtils;
-
+import cn.xyliang.mqtt.config.MqttProperties.Config;
+import cn.xyliang.mqtt.config.MqttProperties.Will;
+import cn.xyliang.mqtt.utils.MqttUtils;
 import lombok.extern.log4j.Log4j2;
 
 /**
