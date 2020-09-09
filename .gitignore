@@ -60,3 +60,5 @@ _ReSharper*/
 /logs/
 [Tt]est[Rr]esult*
 /target/
+pom.xml.releaseBackup
+*/pom.xml.releaseBackup

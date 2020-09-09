@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.xyliang</groupId>
 	<artifactId>integration-mqtt</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>integration-mqtt</name>
 	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<description>integration mqtt starter</description>
@@ -168,6 +168,24 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<goals>-f pom.xml deploy</goals>
+					<checkModificationExcludes>
+						<checkModificationExclude>.project</checkModificationExclude>
+						<checkModificationExclude>.settings</checkModificationExclude>
+						<checkModificationExclude>.classpath</checkModificationExclude>
+						<checkModificationExclude>target</checkModificationExclude>
+						<checkModificationExclude>gwt-unitCache</checkModificationExclude>
+						<checkModificationExclude>widgetsets</checkModificationExclude>
+						<checkModificationExclude>changes</checkModificationExclude>
+					</checkModificationExcludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
