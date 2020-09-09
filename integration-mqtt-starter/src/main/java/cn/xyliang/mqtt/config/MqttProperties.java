@@ -96,10 +96,20 @@ public class MqttProperties {
 		 */
 		private Will producerWill;
 
+		/**
+		 * 重写获取消费者客户端id
+		 * 
+		 * @return
+		 */
 		public String getConsumerClientId() {
 			return clientIdAppendIp == null || !clientIdAppendIp ? consumerClientId : consumerClientId + hostAddress;
 		}
 
+		/**
+		 * 重写获生产者客户端id
+		 * 
+		 * @return
+		 */
 		public String getProducerClientId() {
 			return clientIdAppendIp == null || !clientIdAppendIp ? producerClientId : producerClientId + hostAddress;
 		}

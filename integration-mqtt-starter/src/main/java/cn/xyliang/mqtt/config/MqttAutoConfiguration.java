@@ -53,6 +53,9 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 
 	/**
 	 * 初始化
+	 * 
+	 * @param channelName
+	 * @param config
 	 */
 	private void init(String channelName, Config config) {
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
@@ -74,7 +77,8 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	/**
 	 * mqtt工厂
 	 * 
-	 * @param vo
+	 * @param config
+	 * @param isConsumer
 	 * @return
 	 */
 	private MqttPahoClientFactory mqttClientFactory(Config config, boolean isConsumer) {
@@ -110,7 +114,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	/**
 	 * 初始化通道
 	 * 
-	 * @return
+	 * @return 
 	 */
 	private AbstractBeanDefinition mqttChannel() {
 		BeanDefinitionBuilder messageChannelBuilder = BeanDefinitionBuilder.genericBeanDefinition(DirectChannel.class);
@@ -121,7 +125,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	/**
 	 * mqtt消息驱动转换器
 	 * 
-	 * @param vo
+	 * @param config
 	 * @param mqttChannel
 	 * @return
 	 */
@@ -143,7 +147,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	/**
 	 * 消息发送客户端
 	 * 
-	 * @param vo
+	 * @param config
 	 * @return
 	 */
 	private AbstractBeanDefinition mqttOutbound(Config config) {

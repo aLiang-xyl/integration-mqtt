@@ -4,9 +4,14 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>cn.xyliang</groupId>
+	
+	<parent>
+		<groupId>cn.xyliang</groupId>
+		<artifactId>integration-mqtt</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
 	<artifactId>integration-mqtt-demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>integration-mqtt-demo</name>
 	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<properties>
@@ -56,17 +61,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>

@@ -23,8 +23,17 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MqttUtils {
 
+	/**
+	 * qos 0
+	 */
 	public static final int QOS_0 = 0;
+	/**
+	 * qos 1
+	 */
 	public static final int QOS_1 = 1;
+	/**
+	 * qos 2
+	 */
 	public static final int QOS_2 = 2;
 
 	private final static Map<String, MqttPahoMessageHandler> HANDLER_MAP = new HashMap<>(16);
@@ -99,7 +108,6 @@ public class MqttUtils {
 	 * 
 	 * @param topic
 	 * @param message
-	 * @param qos
 	 */
 	public static void sendMessage(String topic, String message) {
 		MqttPahoMessageHandler handler = getDefaultHeadler();
