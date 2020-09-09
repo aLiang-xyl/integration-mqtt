@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.xyliang</groupId>
 	<artifactId>integration-mqtt</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>integration-mqtt</name>
 	<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 	<description>integration mqtt starter</description>
@@ -46,7 +46,7 @@
 		<url>https://github.com/aLiang-xyl/integration-mqtt</url>
 		<connection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</connection>
 		<developerConnection>scm:git:git@github.com:aLiang-xyl/integration-mqtt.git</developerConnection>
-	  <tag>integration-mqtt-0.0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<dependencyManagement>
 		<dependencies>
