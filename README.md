@@ -2,6 +2,15 @@
 
 该jar整合了spring-integration-mqtt，只需添加配置，并实现消息订阅接口即可。
 
+## 依赖
+```xml
+<dependency>
+    <groupId>cn.xyliang</groupId>
+	<artifactId>integration-mqtt-starter</artifactId>
+	<version>0.0.1</version>
+</dependency>
+```
+
 ### 类说明
 * MqttAutoConfiguration为自动配置类
 * MqttProperties配置文件映射
