@@ -6,8 +6,8 @@
 ```xml
 <dependency>
     <groupId>cn.xyliang</groupId>
-	<artifactId>integration-mqtt-starter</artifactId>
-	<version>0.0.1</version>
+    <artifactId>integration-mqtt-starter</artifactId>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -118,9 +118,9 @@ MqttUtils工具类中封装了多个发送消息的方法
 
 ## 2020-07-14 22:51
 
-1. 添加遗嘱功能，见配置。
+* 添加遗嘱功能，见配置。
 
-2. MqttProperties类中的布尔基础类型改为了封装类型。
+* MqttProperties类中的布尔基础类型改为了封装类型。
 
 ## 2020-08-21 11:35
 
@@ -134,3 +134,7 @@ MqttUtils工具类中封装了多个发送消息的方法
 * 去掉了client-id-prefix配置，相应的添加了consumer-client-id，producer-client-id配置，不再自动添加uuid后缀，可添加配置client-id-append-ip决定是否在clientId后追加本机ip
 
 * 去掉了will配置，相应的添加consumer-will,producer-will，分别配置生产者和消费者的遗嘱消息
+
+## 2020-09-11 17:15
+
+* 更改自动配置类路径错误
