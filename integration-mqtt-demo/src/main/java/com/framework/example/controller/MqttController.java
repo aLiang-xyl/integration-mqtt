@@ -30,6 +30,14 @@ public class MqttController {
 	private MqttPahoMessageDrivenChannelAdapter channel1MqttChannelAdapter;
 
 
+	/**
+	 * 
+	 * <p>
+	 * 发送消息到默认channel上的topic
+	 * </P>
+	 * @param topic
+	 * @return
+	 */
 	@GetMapping(value = { "/sendMessage" })
 	public String sendMessage(String topic) {
 		String messageContent = "测试----" + UUID.randomUUID().toString() + "----"
@@ -39,6 +47,15 @@ public class MqttController {
 		return messageContent;
 	}
 	
+	/**
+	 * 
+	 * <p>
+	 * 发送消息到指定的channel上的topic
+	 * </P>
+	 * @param topic
+	 * @param channelName
+	 * @return
+	 */
 	@GetMapping(value = { "/sendMessageByChannel" })
 	public String sendMessageByChannel(String topic, String channelName) {
 		String messageContent = "测试----" + UUID.randomUUID().toString() + "----"
@@ -48,8 +65,17 @@ public class MqttController {
 		return messageContent;
 	}
 	
+	/**
+	 * 
+	 * <p>
+	 * 动态订阅主题
+	 * </P>
+	 * @param topic
+	 * @param qos
+	 * @return
+	 */
 	@GetMapping(value = { "/addTopic" })
-	public String sendMessageByChannel(String topic, Integer qos) {
+	public String addTopic(String topic, Integer qos) {
 		log.info("主题 ：{} qos：{}", topic, qos);
 		channel1MqttChannelAdapter.addTopic(topic, qos);
 		return "操作成功";
