@@ -44,6 +44,14 @@ public class MqttProperties {
 	@Data
 	public static class Config {
 		/**
+		 * 是否开启consumer,默认true开启
+		 */
+		private Boolean consumerEnable;
+		/**
+		 * 是否开启producer,默认true开启
+		 */
+		private Boolean producerEnable;
+		/**
 		 * 数组tcp://ip:port
 		 */
 		private String[] url;

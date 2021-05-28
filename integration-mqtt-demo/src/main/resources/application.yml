@@ -10,6 +10,8 @@ spring:
 mqtt:
   config: 
     channel1:
+      consumer-enable: true
+      producer-enable: true
       url: [tcp://centos7docker:1883]
       topics: [topic1, topic2]
       qos: [1, 0]

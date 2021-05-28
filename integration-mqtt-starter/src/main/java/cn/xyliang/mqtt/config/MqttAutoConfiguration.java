@@ -44,7 +44,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	private ConfigurableApplicationContext applicationContext;
 	@Autowired
 	private MqttProperties mqttProperties;
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = (ConfigurableApplicationContext) applicationContext;
@@ -59,19 +59,25 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	 */
 	private void init(String channelName, Config config) {
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
-		// 通道信息
-		beanFactory.registerBeanDefinition(channelName, mqttChannel());
-		log.info("初始化mqtt, channel {}, 配置 {} ", channelName, config);
+		// 默认开启consumer
+		if (!Boolean.FALSE.equals(config.getConsumerEnable())) {
+			// 通道信息
+			beanFactory.registerBeanDefinition(channelName, mqttChannel());
+			log.info("初始化mqtt, channel {}, 配置 {} ", channelName, config);
 
-		MessageChannel mqttChannel = beanFactory.getBean(channelName, MessageChannel.class);
-		beanFactory.registerBeanDefinition(channelName + "MqttChannelAdapter", channelAdapter(config, mqttChannel));
-		log.info("初始化mqtt Channel Adapter");
+			MessageChannel mqttChannel = beanFactory.getBean(channelName, MessageChannel.class);
+			beanFactory.registerBeanDefinition(channelName + "MqttChannelAdapter", channelAdapter(config, mqttChannel));
+			log.info("初始化mqtt Channel Adapter");
+		}
 
-		String handlerBeanName = channelName + MqttUtils.CHANNEL_NAME_SUFFIX;
-		beanFactory.registerBeanDefinition(handlerBeanName, mqttOutbound(config));
-		log.info("初始化mqtt MqttPahoMessageHandler");
+		// 默认开启consumer
+		if (!Boolean.FALSE.equals(config.getProducerEnable())) {
+			String handlerBeanName = channelName + MqttUtils.CHANNEL_NAME_SUFFIX;
+			beanFactory.registerBeanDefinition(handlerBeanName, mqttOutbound(config));
+			log.info("初始化mqtt MqttPahoMessageHandler");
 
-		MqttUtils.put(channelName, beanFactory.getBean(handlerBeanName, MqttPahoMessageHandler.class));
+			MqttUtils.put(channelName, beanFactory.getBean(handlerBeanName, MqttPahoMessageHandler.class));
+		}
 	}
 
 	/**
@@ -114,7 +120,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 	/**
 	 * 初始化通道
 	 * 
-	 * @return 
+	 * @return
 	 */
 	private AbstractBeanDefinition mqttChannel() {
 		BeanDefinitionBuilder messageChannelBuilder = BeanDefinitionBuilder.genericBeanDefinition(DirectChannel.class);
@@ -133,8 +139,7 @@ public class MqttAutoConfiguration implements ApplicationContextAware, BeanPostP
 		BeanDefinitionBuilder messageProducerBuilder = BeanDefinitionBuilder
 				.genericBeanDefinition(MqttPahoMessageDrivenChannelAdapter.class);
 		messageProducerBuilder.setScope(BeanDefinition.SCOPE_SINGLETON);
-		messageProducerBuilder
-				.addConstructorArgValue(config.getConsumerClientId());
+		messageProducerBuilder.addConstructorArgValue(config.getConsumerClientId());
 		messageProducerBuilder.addConstructorArgValue(mqttClientFactory(config, true));
 		messageProducerBuilder.addConstructorArgValue(config.getTopics());
 		messageProducerBuilder.addPropertyValue("converter", new DefaultPahoMessageConverter());

@@ -22,6 +22,8 @@
 mqtt:
   config: 
     channel1:                                          #通道名称，可自定义，订阅消息时需要该名称
+      consumer-enable: true                            #是否开启consumer，默认开启
+      producer-enable: true                            #是否开启producer，默认开启    
       url: [tcp://host1:1883, tcp://host1:1883]        #mqtt的url
       topics: [topic1, topic2]                         #监听的主题，和qos一一对应
       qos: [1, 0]                                      #监听主题的qos，和主题一一对应
@@ -138,3 +140,7 @@ MqttUtils工具类中封装了多个发送消息的方法
 ## 2020-09-11 17:15
 
 * 更改自动配置类路径错误
+
+## 2021-05-25 13:55
+
+* 添加是否开启consumer和producer的开关，具体配置见配置说明
