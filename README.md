@@ -7,7 +7,7 @@
 <dependency>
     <groupId>cn.xyliang</groupId>
     <artifactId>integration-mqtt-starter</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
