@@ -110,7 +110,7 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 						<version>1.6</version>
-						<!-- <executions>
+						<executions>
 							<execution>
 								<id>sign-artifacts</id>
 								<phase>verify</phase>
@@ -118,13 +118,10 @@
 									<goal>sign</goal>
 								</goals>
 								<configuration>
-									<keyname>90E161E7633EDF0EE7027080A737ED675F1991F7</keyname>
+									<keyname>F36DC8A06F4D1015B733D0F8FCC5F9C2DCCC4E76</keyname>
 								</configuration>
 							</execution>
-						</executions> -->
-						<configuration>
-                            <skip>true</skip>
-                        </configuration>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
