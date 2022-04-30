@@ -32,6 +32,10 @@ mqtt:
       timeout: 60                                      #连接超时时间，单位：秒
       kep-alive-interval: 60                           #心跳时间，单位：秒
       async: true                                      #发送消息时是否异步发送
+      automatic-reconnect: true                        #是否自动重连，不配置的话默认为true
+      clean-session: true                              #断开连接时是否清除session，不配置的话默认为true
+      max-inflight: 50                                 #max inflight，不配置的话则使用默认值10
+      mqtt-version:                                    #mqtt版本，可不配置
       client-id-append-ip: true                        #是否在clientId后面追加本机ip，因为clientid是唯一值，集群环境下不能使用相同的clientid，追加ip可解决该问题
       consumer-client-id: consumer_client_test1        #consumer client id配置
       producer-client-id: producer_client_test1        #producer client id配置
@@ -54,6 +58,10 @@ mqtt:
       timeout: 60
       kep-alive-interval: 60
       async: true
+      automatic-reconnect: true                        
+      clean-session: true                              
+      max-inflight: 50                                 
+      mqtt-version:                                   
       consumer-client-id: consumer_client_test2
       producer-client-id: producer_client_test2
       consumer-will: 
@@ -144,3 +152,8 @@ MqttUtils工具类中封装了多个发送消息的方法
 ## 2021-05-25 13:55
 
 * 添加是否开启consumer和producer的开关，具体配置见配置说明
+
+## 2022-04-30 22:54 祝大家五一节玩的开心,愿疫情快快结束
+
+* 添加配置：automatic-reconnect自动连接，clean-session断开是否清除session，max-inflight，mqtt-version，配置方式见上面的配置块文档
+* 添加MqttPahoClientFactorySettingCallback，注册为spring的bean则会自动生效，用于配置时的回调，可进行自定义配置MqttConnectOptions，例如配置ssl等

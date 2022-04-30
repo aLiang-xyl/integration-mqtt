@@ -96,6 +96,23 @@ public class MqttProperties {
 		 */
 		private Boolean async;
 		/**
+		 * 是否自动重连
+		 */
+		private Boolean automaticReconnect;
+		/**
+		 * 是否清除session
+		 */
+		private Boolean cleanSession;
+		/**
+		 * max inflight
+		 */
+		private Integer maxInflight;
+		/**
+		 * mqtt版本
+		 */
+		private Integer mqttVersion;
+		
+		/**
 		 * consumer遗嘱配置
 		 */
 		private Will consumerWill;
